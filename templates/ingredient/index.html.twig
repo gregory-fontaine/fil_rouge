@@ -3,37 +3,42 @@
 {% block title %}Ingredient index{% endblock %}
 
 {% block body %}
-    <h1>Ingredient index</h1>
+    
+    <h1 class="text-center">Ingredient index</h1>
+    <div class="d-flex justify-content-center"> 
 
-    <table class="table">
+    <table class="table table-warning border-dark table-striped align-middle w-75" >
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>CreatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for ingredient in ingredients %}
-            <tr>
-                <td>{{ ingredient.id }}</td>
-                <td>{{ ingredient.name }}</td>
-                <td>{{ ingredient.price }}</td>
-                <td>{{ ingredient.createdAt ? ingredient.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_ingredient_show', {'id': ingredient.id}) }}">show</a>
-                    <a href="{{ path('app_ingredient_edit', {'id': ingredient.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
+                <th class="col-2">Id</th>
+                <th class="col-2">Nom</th>
+                <th class="col-2">Prix</th>
+                <th class="col-2">Crée le</th>
+                <th class="col-2">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for ingredient in ingredients %}
+                        <tr>
+                <td class="col-2">{{ ingredient.id }}</td>
+                <td class="col-2">{{ ingredient.name }}</td>
+                <td class="col-2">{{ ingredient.price }}</td>
+                <td class="col-2">{{ ingredient.createdAt ? ingredient.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="col-2">
+                    <a href="{{ path('app_ingredient_show', {'id': ingredient.id}) }}"><button class="btn btn-secondary btn-sm">Voir</button></a>
+                    <a href="{{ path('app_ingredient_edit', {'id': ingredient.id}) }}"><button class="btn btn-primary btn-sm">Modifier</button></a>
+                    </td>
+                    </tr>
+                {% else %}
             <tr>
                 <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
-    </table>
-
-    <a href="{{ path('app_ingredient_new') }}">Create new</a>
-{% endblock %}
+        </table>
+        
+        </div>
+        <div class="text-center">
+        <a href="{{ path('app_ingredient_new') }}"><button class="btn btn-primary btn-lg mb-5">Ajouter nouveau</button></a>
+        </div>
+    {% endblock %}
