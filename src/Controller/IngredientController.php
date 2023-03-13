@@ -9,11 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/ingredient')]
 class IngredientController extends AbstractController
 {
     #[Route('/', name: 'app_ingredient_index', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function index(IngredientRepository $ingredientRepository): Response
     {
         return $this->render('ingredient/index.html.twig', [
@@ -22,6 +24,7 @@ class IngredientController extends AbstractController
     }
 
     #[Route('/new', name: 'app_ingredient_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
     public function new(Request $request, IngredientRepository $ingredientRepository): Response
     {
         $ingredient = new Ingredient();
@@ -41,6 +44,7 @@ class IngredientController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_ingredient_show', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function show(Ingredient $ingredient): Response
     {
         return $this->render('ingredient/show.html.twig', [
@@ -49,6 +53,7 @@ class IngredientController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_ingredient_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
     public function edit(Request $request, Ingredient $ingredient, IngredientRepository $ingredientRepository): Response
     {
         $form = $this->createForm(Ingredient1Type::class, $ingredient);
@@ -67,6 +72,7 @@ class IngredientController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_ingredient_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
     public function delete(Request $request, Ingredient $ingredient, IngredientRepository $ingredientRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$ingredient->getId(), $request->request->get('_token'))) {

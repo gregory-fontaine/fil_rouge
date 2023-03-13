@@ -5,28 +5,35 @@
 {% block body %}
     
     <h1 class="text-center">Ingredient index</h1>
+
+    <div class="text-center mt-5">
+        <a href="{{ path('app_ingredient_new') }}"><button class="btn btn-primary btn-lg mb-3">Ajouter nouveau</button></a>
+        </div>
     <div class="d-flex justify-content-center"> 
 
     <table class="table table-warning border-dark table-striped align-middle w-75" >
         <thead>
             <tr>
-                <th class="col-2">Id</th>
-                <th class="col-2">Nom</th>
-                <th class="col-2">Prix</th>
-                <th class="col-2">Crée le</th>
-                <th class="col-2">Actions</th>
+                <th class="text-center col-2">Id</th>
+                <th class="text-center col-2">Nom</th>
+                <th class="text-center col-2">Prix</th>
+                <th class="text-center col-2">Crée le</th>
+                <th class="text-center col-2">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                     {% for ingredient in ingredients %}
                         <tr>
-                <td class="col-2">{{ ingredient.id }}</td>
-                <td class="col-2">{{ ingredient.name }}</td>
-                <td class="col-2">{{ ingredient.price }}</td>
-                <td class="col-2">{{ ingredient.createdAt ? ingredient.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td class="col-2">
-                    <a href="{{ path('app_ingredient_show', {'id': ingredient.id}) }}"><button class="btn btn-secondary btn-sm">Voir</button></a>
-                    <a href="{{ path('app_ingredient_edit', {'id': ingredient.id}) }}"><button class="btn btn-primary btn-sm">Modifier</button></a>
+                <td class="col-2 text-center ">{{ ingredient.id }}</td>
+                <td class="text-center col-2">{{ ingredient.name }}</td>
+                <td class="text-center col-2">{{ ingredient.price }}</td>
+                <td class="text-center col-2 ">{{ ingredient.createdAt ? ingredient.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="text-center col-2 ">
+            <div class="d-flex flex-row justify-content-center">
+                    <a href="{{ path('app_ingredient_show', {'id': ingredient.id}) }}"><button class="btn btn-secondary m-1 btn-sm">Voir</button></a>
+                    {{ include('ingredient/_delete_form.html.twig') }}
+                    <a href="{{ path('app_ingredient_edit', {'id': ingredient.id}) }}"><button class="btn btn-success m-1 btn-sm">Modifier</button></a>
+                    </div>
                     </td>
                     </tr>
                 {% else %}
@@ -38,7 +45,5 @@
         </table>
         
         </div>
-        <div class="text-center">
-        <a href="{{ path('app_ingredient_new') }}"><button class="btn btn-primary btn-lg mb-5">Ajouter nouveau</button></a>
-        </div>
+        
     {% endblock %}

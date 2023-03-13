@@ -10,6 +10,7 @@ namespace App\Controller;
  {
     #[Route('/', 'home.index', methods: ['GET'])]
     public function index():Response
+    
     {
         return $this->render('home.html.twig');
     }
